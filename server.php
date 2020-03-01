@@ -14,9 +14,9 @@
         $msg = socket_read($accept, 1024) or die("Could not read input\n");
 
         $msg = trim($msg);
-        echo 'Client says:\t'.$msg.'\n\n';
+        echo "Client says:\t".$msg."\n\n";
 
-        echo 'Enter Reply:\t';
+        echo "Enter Reply:\t";
         $reply = rtrim(fgets(STDIN));
         
         socket_write($accept, $reply, strlen($reply)) or die("Could not write output\n");
