@@ -14,12 +14,31 @@
         $msg = socket_read($accept, 1024) or die("Could not read input\n");
 
         $msg = trim($msg);
-        echo "Client says:\t".$msg."\n\n";
+        $msg = explode("###", $msg);
+        echo "Username: ".$msg[0]."\n";
+        echo "Password: ".$msg[1]."\n";
 
-        echo "Enter Reply:\t";
-        $reply = rtrim(fgets(STDIN));
+        if(!file_exists("./login.log")){
+            $login_file = fopen("./login.log", "w") or die("Unable to open file!");
+        }
+        else{
+            $login_file = fopen("./login.log", "a") or die("Unable to open file!");
+        }
+        $timestamp = time();
+        $txt = $msg[0]." ".$timestamp." ";
+        if((strlen($msg[0]) <= 50 && strlen($msg[1]) <= 50)){
+            $txt .= "true\n";
+            $reply = "Login Success";
+        }
+        else{
+            $txt .= "false\n";
+            $reply = "Login failed";
+        }
+        //$txt .= ((strlen($msg[0]) <= 50 && strlen($msg[1]) <= 50) ? "true\n" : "false\n");
+        fwrite($login_file, $txt);
+        fclose($myfile);
         
-        socket_write($accept, $reply, strlen($reply)) or die("Could not write output\n");
+        socket_write($accept, $reply, strlen($reply)) or die("Could not write reply\n");
     }
 
     socket_close($accept, $sock);

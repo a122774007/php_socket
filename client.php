@@ -46,7 +46,10 @@
                         $port = '3000';
 
                         if(isset($_POST['btnSend'])){
-                            $msg = $_REQUEST['username '];
+                            $username = $_REQUEST['username'];
+                            $password = $_REQUEST['password'];
+                            $msg = $username."###".$password;
+
                             $sock = socket_create(AF_INET, SOCK_STREAM, 0);
                             socket_connect($sock, $host, $port);
 
@@ -57,11 +60,7 @@
                             $reply = "server say:\t".$reply;
                         }
                     ?>
-                    <tr>
-                        <td>
-                            <textarea rows="10" cols="30"><?php echo $reply; ?></textarea>
-                        </td>
-                    </tr>
+                    <script>alert("<?php echo $reply; ?>")</script>
                 </table>
             </form>
         </div>
