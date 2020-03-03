@@ -17,12 +17,15 @@
         $msg = explode("###", $msg);
         echo "Username: ".$msg[0]."\n";
         echo "Password: ".$msg[1]."\n";
+        //$check = file_exists("C:/xampp/htdocs/php_socket/login.log");
 
-        if(!file_exists("./login.log")){
-            $login_file = fopen("./login.log", "w") or die("Unable to open file!");
+        if(!file_exists("C:/xampp/htdocs/php_socket/login.log")){
+            $login_file = fopen("C:/xampp/htdocs/php_socket/login.log", "w") or die("Unable to open file!");
+            echo "not exist\n";
         }
         else{
-            $login_file = fopen("./login.log", "a") or die("Unable to open file!");
+            $login_file = fopen("C:/xampp/htdocs/php_socket/login.log", "a") or die("Unable to open file!");
+            echo "exist\n";
         }
         $timestamp = time();
         $txt = $msg[0]." ".$timestamp." ";
@@ -36,7 +39,7 @@
         }
         //$txt .= ((strlen($msg[0]) <= 50 && strlen($msg[1]) <= 50) ? "true\n" : "false\n");
         fwrite($login_file, $txt);
-        fclose($myfile);
+        fclose($login_file);
         
         socket_write($accept, $reply, strlen($reply)) or die("Could not write reply\n");
     }
