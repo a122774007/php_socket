@@ -57,7 +57,7 @@
 
                             $reply = socket_read($sock, 1024);
                             $reply = trim($reply);
-                            $reply = "server say:\t".$reply;
+                            //$reply = "server say:\t".$reply;
                         }
                     ?>
                     <script>alert("<?php echo $reply; ?>")</script>

@@ -7,7 +7,7 @@
     $result = socket_bind($sock, $host, $port) or die("Could not bind to socket\n");
 
     $result = socket_listen($sock, 3) or die("Could not set up socket listener\n");
-    echo 'Listening for connections';
+    echo 'Listening for connections\n';
 
     while(true){
         $accept = socket_accept($sock) or die("Could not accept incoming connection\n");
@@ -17,14 +17,13 @@
         $msg = explode("###", $msg);
         echo "Username: ".$msg[0]."\n";
         echo "Password: ".$msg[1]."\n";
-        //$check = file_exists("C:/xampp/htdocs/php_socket/login.log");
 
-        if(!file_exists("C:/xampp/htdocs/php_socket/login.log")){
+        if(!file_exists(dirname(__FILE__)."/login.log")){
             $login_file = fopen("C:/xampp/htdocs/php_socket/login.log", "w") or die("Unable to open file!");
             echo "not exist\n";
         }
         else{
-            $login_file = fopen("C:/xampp/htdocs/php_socket/login.log", "a") or die("Unable to open file!");
+            $login_file = fopen(dirname(__FILE__)."/login.log", "a") or die("Unable to open file!");
             echo "exist\n";
         }
         $timestamp = time();
